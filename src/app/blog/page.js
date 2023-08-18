@@ -1,5 +1,7 @@
 import getDomain from "@/app/lib/getDomain";
 
+import Card from "./card";
+
 async function getData() {
     const domain = getDomain();
     const endpoint = `${domain}/api/post`;
@@ -27,7 +29,7 @@ export default async function BlogPage() {
             <h1>Hello, NextJS</h1>
             <p>Posts:</p>
             {items && items.map((item, idx) => {
-                return <li key={`post-${idx}`}>{item.title}</li>
+                return <Card title={item.title} key={`post-${idx}`} />
             })}
         </main>
     );
