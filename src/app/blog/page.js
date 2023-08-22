@@ -1,6 +1,7 @@
 import getDomain from "@/app/lib/getDomain";
 
 import Card from "./card";
+import {helloWorld} from "@/app/lib/db";
 
 async function getData() {
     const domain = getDomain();
@@ -23,10 +24,14 @@ async function getData() {
 
 export default async function BlogPage() {
     const data = await getData();
+    const dbHello = await helloWorld();
+    console.log("dbHello", dbHello);
+
     const items = data && data.items ? [...data.items] : [];
     return (
         <main>
             <h1>Hello, NextJS</h1>
+            <p>DB Response: {JSON.stringify(dbHello)}</p>
             <p>Posts:</p>
             {items && items.map((item, idx) => {
                 return <Card title={item.title} key={`post-${idx}`} />
@@ -34,3 +39,6 @@ export default async function BlogPage() {
         </main>
     );
 }
+
+export const runtime = "edge";
+export const preferredRegion = "iad1";
